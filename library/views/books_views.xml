@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="books_tree_view" model="ir.ui.view">
+            <field name="name">library.books.tree</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="price"/>
+                    <field name="isbn"/>
+                </tree>
+            </field>
+        </record>
+
+        <act_window id="action_view_rent" 
+            name="Open renters"
+            res_model="res.partner"
+            view_mode="tree,form"
+            domain="[('rent_ids.book_id', 'in', active_ids)]" />        
+
+        <record id="books_form_view" model="ir.ui.view">
+            <field name="name">library.books.form</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" 
+                                type="action"
+                                name="%(action_view_rent)d" 
+                                icon="fa-users">
+                                <div class="o_stat_info">
+                                    <field name="total_renters" class="o_stat_value"/>
+                                    <span class="o_stat_text" >
+                                        Renters 
+                                    </span>
+                                </div>
+                            </button>                            
+                        </div>                    
+                        <group>
+                            <field name="name"/>
+                            <field name="isbn"/>
+                            <field name="status"/>
+                            <field name="price"/>
+                            <field name="is_book"/>
+                            <field name="is_rented"/>
+                        </group>
+                        <notebook>
+                            <page string="Rentals" name="rentals">
+                                <field name="rent_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>    
+                </form>
+            </field>
+        </record>        
+
+        <record id="books_action" model="ir.actions.act_window">
+            <field name="name">Books</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="book_action_view_tree" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="sequence" eval="20"/>
+            <field name="view_id" ref="library.books_tree_view"/>
+            <field name="act_window_id" ref="library.books_action"/>
+        </record>
+
+        <record id="book_action_view_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="sequence" eval="20"/>
+            <field name="view_id" ref="library.books_form_view"/>
+            <field name="act_window_id" ref="library.books_action"/>
+        </record>
+
+
+
+</odoo>
