@@ -1,0 +1,7 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+session_instructor,Session Instructor,model_openacademy_session,group_instructor,1,1,1,1
+session_student,Session Student,model_openacademy_session,group_student,1,1,0,0
+course_instructor,Course Instructor,model_openacademy_class,group_instructor,1,1,1,1
+course_student,Course Student,model_openacademy_class,group_student,1,0,0,0
+partner_instructor,Partner Instructor,model_res_partner,group_instructor,1,1,1,1
+partner_student,Partner Student,openacademy.model_res_partner,group_student,1,0,0,0
